@@ -32,8 +32,8 @@ str(activitydata)
 
 
 ## What is mean total number of steps taken per day?
-We've calculated the number of steps taken per day and show that in a histogram.
 Here we can omit the NA values so first we do that.
+Then I've calculated the number of steps taken per day and show that in a histogram.
 
 ```r
 activitydata1<-na.omit(activitydata)
@@ -56,7 +56,7 @@ hist(steps_per_day, main="Total number of steps taken each day", breaks=30,xlab=
 
 ![](PA1_template_files/figure-html/unnamed-chunk-2-1.png) 
 
-Then calculate and report the mean of the total number of steps taken per day.
+After that I've calculate and reported the mean of the total number of steps taken per day.
 
 ```r
 mean(steps_per_day)
@@ -66,7 +66,7 @@ mean(steps_per_day)
 ## [1] 10766.19
 ```
 
-Then calculate and report the median of the total number of steps taken per day.
+Then calculated and reported the median of the total number of steps taken per day.
 
 ```r
 median(steps_per_day)
@@ -88,6 +88,8 @@ plot(x=names(steps_per_interval),y=steps_per_interval,type="l",xlab="Interval", 
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
 
+As you can see in the early morning there is a peak in the average number of steps and in the (late) evening you see that the average number of steps goes down to very low again (almost 0).
+
 Then see which 5-minute interval will have the maximum number of steps (on average across all days)
 
 ```r
@@ -101,7 +103,7 @@ max(steps_per_interval)
 
 
 ## Imputing missing values
-We calculate how many rows there are with NA's in it.
+First I calculate how many rows there are with NA's in it.
 
 ```r
 sum(is.na(activitydata))
@@ -112,14 +114,14 @@ sum(is.na(activitydata))
 ```
 
 The presence of missing days/intervals may introduce bias into some calculations or summaries of the data.
-Impute the missing values for the steps with the average number of steps for that time interval. 
+So therefor I impute the missing values for the steps with the average number of steps for that time interval across all days. 
 
 ```r
 activitydata_filled<-activitydata
 activitydata_filled[which(is.na(activitydata_filled$steps)),1]<-steps_per_interval[as.character(activitydata_filled[which(is.na(activitydata_filled$steps)),3])]
 ```
 
-Make a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+Then I've made a histogram of the total number of steps taken each day and calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
 
 ```r
@@ -145,7 +147,7 @@ median(steps_per_day_full)
 ## [1] 10766.19
 ```
 
-As you can see above the mean stayed the same while the median changed a bit and became equal to the mean.
+As you can see above the mean stayed the same while the median changed a bit and became equal to the mean.The total number of steps will have risen because you see in the histogram that around the value of 10.000 for steps per day the frequency has risen to above 15 while it was around 10.I didn't calculated the total because you could see it in the plot already quite clear.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 First at a variable indicating whether or not the day is a weekday or in the weekend is added to the dataset.
@@ -167,4 +169,4 @@ xyplot(steps~interval|weekday, data=steps_per_interval_typeday, layout=c(1,2), t
 ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
 
 
-As you can see in the plots above there are some differences in the average number of steps per interval. In the weekdays there is more activity in the early morning, on the weekend days the average number of steps are more spread out during the day.
+As you can see in the plots above there are some differences in the average number of steps per interval. In the weekdays there is more activity in the early morning(perhaps before leaving for work), on the weekend days the average number of steps are more spread over the day and not such a high peak in the early morning as is foor the weekdays.
